@@ -8,11 +8,15 @@ interface ItemProps {
   items: Item[];
 }
 
+type TimeoutsMap = {
+  [key: string]: NodeJS.Timeout;
+};
+
 const Itemlists: React.FC<ItemProps> = ({ items }) => {
   const [lists, setLists] = useState<Item[]>(items);
   const [fruits, setFruits] = useState<Item[]>([]);
   const [vegetables, setVegetables] = useState<Item[]>([]);
-  const timeOutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutsRef = useRef<TimeoutsMap>({});
 
   const returnItem = (item: Item) => {
     setLists((prev) => [...prev, item]);
@@ -26,8 +30,10 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
   };
 
   const moveItem = (item: Item) => {
-    const newlists = lists.filter(
-      (list) => !(list.type === item.type && list.name === item.name)
+    setLists((prev) =>
+      prev.filter(
+        (list) => !(list.type === item.type && list.name === item.name)
+      )
     );
 
     if (item.type === "Fruit") {
@@ -35,17 +41,21 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
     } else {
       setVegetables((prev) => [...prev, item]);
     }
-    setLists(newlists);
 
-    const timeOutId = setTimeout(() => {
+    if (timeoutsRef.current[item.name]) {
+      clearTimeout(timeoutsRef.current[item.name]);
+    }
+
+    timeoutsRef.current[item.name] = setTimeout(() => {
       returnItem(item);
+      delete timeoutsRef.current[item.name];
     }, 5000);
-    timeOutRef.current = timeOutId;
   };
 
   useEffect(() => {
+    const timeoutsMap = timeoutsRef.current;
     return () => {
-      timeOutRef.current && clearTimeout(timeOutRef.current);
+      Object.values(timeoutsMap).forEach((timeout) => clearTimeout(timeout));
     };
   }, []);
 
