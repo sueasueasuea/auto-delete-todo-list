@@ -98,7 +98,7 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
             <button
               key={vegetable.name}
               onClick={() => returnItem(vegetable)}
-              className="bg-gradient-to-r from-spinach via-carrot to-beet text-white font-bold py-2 px-4 rounded"
+              className="bg-gradient-to-r from-spinach via-pumpkin to-mushroom text-white font-bold py-2 px-4 rounded"
             >
               {vegetable.name}
             </button>
