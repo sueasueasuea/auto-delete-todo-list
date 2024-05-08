@@ -66,9 +66,9 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
           <div className="flex justify-center bg-gray-200 p-3">
             <p>All Items</p>
           </div>
-          {lists.map((item, index) => (
+          {lists.map((item) => (
             <button
-              key={index}
+              key={item.name}
               onClick={() => moveItem(item)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
@@ -80,11 +80,11 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
           <div className="flex justify-center bg-gray-200 p-3">
             <p>Fruits</p>
           </div>
-          {fruits.map((fruit, index) => (
+          {fruits.map((fruit) => (
             <button
-              key={index}
+              key={fruit.name}
               onClick={() => returnItem(fruit)}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-gradient-to-r from-strawberry via-orange to-lime text-white font-bold py-2 px-4 rounded"
             >
               {fruit.name}
             </button>
@@ -94,11 +94,11 @@ const Itemlists: React.FC<ItemProps> = ({ items }) => {
           <div className="flex justify-center bg-gray-200 p-3">
             <p>Vegetables</p>
           </div>
-          {vegetables.map((vegetable, index) => (
+          {vegetables.map((vegetable) => (
             <button
-              key={index}
+              key={vegetable.name}
               onClick={() => returnItem(vegetable)}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-gradient-to-r from-spinach via-carrot to-beet text-white font-bold py-2 px-4 rounded"
             >
               {vegetable.name}
             </button>
